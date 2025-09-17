@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -403,6 +403,17 @@ require('lazy').setup({
 
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
+      vim.keymap.set('n', '<space>ff', require('telescope.builtin').find_files)
+      vim.keymap.set('n', '<Space>fc', function()
+        require('telescope.builtin').find_files {
+          cwd = vim.fn.stdpath 'config',
+        }
+      end, { desc = 'Telescope: find config files' })
+      vim.keymap.set('n', '<Space>fv', function()
+        require('telescope.builtin').find_files {
+          cwd = vim.fn.expand '~/Documents/Vault',
+        }
+      end, { desc = 'Telescope: Open Vault' })
       require('telescope').setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
